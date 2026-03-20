@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-const DisplayVote = ({anecdote, vote}) => {
-  console.log({anecdote, vote})
-  if (vote === 0) {
+const DisplayAnecdote = ({anecdote, vote, noInfo}) => {
+  console.log({anecdote, vote, noInfo})
+  if (vote === 0 && noInfo === 1) {
     return (
       <div>
         No feedback given
@@ -32,7 +32,7 @@ const App = () => {
   return (
     <div>
       <h1>Anecdote of the day</h1>
-      <p>{anecdotes[selected]}</p>
+      <DisplayAnecdote anecdote = {anecdotes[selected]} vote = {vote[selected]} noInfo = {0}/>
       <button onClick={() => {
         let newVote = [...vote]
         newVote[selected] += 1
@@ -41,7 +41,7 @@ const App = () => {
       }>vote</button>
       <button onClick = {() => setSelected(Math.floor(Math.random() * 8))}>next anecdote</button>
       <h1>Anecdote with most votes</h1>
-      <DisplayVote anecdote = {anecdotes[vote.indexOf(Math.max(...vote))]} vote = {Math.max(...vote)}/>
+      <DisplayAnecdote anecdote = {anecdotes[vote.indexOf(Math.max(...vote))]} vote = {Math.max(...vote)} noInfo = {1}/>
     </div>
   )
 }
